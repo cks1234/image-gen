@@ -1,0 +1,34 @@
+# === Node.js (React Frontend) ===
+frontend/node_modules/
+frontend/dist/
+
+# === Python (FastAPI Backend) ===
+__pycache__/
+backend/node_modules/
+*.py[cod]
+*.pyo
+*.pyd
+backend/__pycache__/
+backend/venv/
+venv/
+*.log
+
+# === Environment Variables ===
+.env
+backend/.env
+
+# === Docker Artifacts ===
+*.pid
+*.db
+
+# === Editor/IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
