@@ -27,6 +27,6 @@ jobs:
       run: |
         ssh ubuntu@${{ secrets.EC2_HOST }} << EOF
           cd /home/ubuntu/image-gen
-          docker-compose down
-          docker-compose up -d --build
+          docker compose down
+          docker compose up -d --build
         EOF
