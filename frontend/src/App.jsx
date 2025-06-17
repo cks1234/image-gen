@@ -14,7 +14,7 @@ function App() {
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:8000/generate', {
-        text: prompt
+        text: prompt,
       });
       setImageUrl(response.data.url);
     } catch (err) {
@@ -25,37 +25,33 @@ function App() {
   };
 
   return (
-    <div className={`min-vh-100 py-5 ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-      <div className="container">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="mb-0">🖼 AI Image Generator</h1>
-          <button className="btn btn-outline-secondary" onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
+    <div className={`min-vh-100 ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+      <div className="container py-5">
+        <div className="d-flex justify-content-between align-items-center mb-5">
+          <h1 className="fw-bold">🖼 AI Image Generator</h1>
+          <button className="btn btn-outline-light" onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? '☀ Light Mode' : '🌙 Dark Mode'}
           </button>
         </div>
 
-        <div className="input-group mb-4">
+        <div className="input-group input-group-lg mb-4 shadow-sm">
           <input
             type="text"
             className="form-control"
-            placeholder="example: a cat flying in space"
+            placeholder="Describe your image (e.g., a cat flying in space)"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-          <button
-            className="btn btn-primary"
-            onClick={generateImage}
-            disabled={loading}
-          >
-            {loading ? 'Generating...' : 'Generated'}
+          <button className="btn btn-primary" onClick={generateImage} disabled={loading}>
+            {loading ? 'Generating...' : 'Generate'}
           </button>
         </div>
 
         {imageUrl && (
-          <div className="card bg-secondary text-white shadow">
-            <div className="card-body text-center">
-              <h5 className="card-title">🎨 Generated Image</h5>
-              <img src={imageUrl} alt="Generated" className="img-fluid rounded" />
+            <div className={`card bg-transparent border-0 shadow-lg ${darkMode ? 'text-white' : 'text-dark'}`}> 
+              <div className="card-body text-center">
+              <h5 className="card-title mb-4"> Result</h5>
+              <img src={imageUrl} alt="Generated" className="img-fluid rounded" style={{ maxHeight: '600px' }} />
             </div>
           </div>
         )}
