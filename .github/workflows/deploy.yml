@@ -1,0 +1,32 @@
+name: Deploy AI Image Generator
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Copy project to EC2
+      run: |
+        rsync -avz --exclude='.git' ./ ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/image-gen
+
+    - name: Build and Run with Docker Compose on EC2
+      run: |
+        ssh ubuntu@${{ secrets.EC2_HOST }} << EOF
+          cd /home/ubuntu/image-gen
+          docker-compose down
+          docker-compose up -d --build
+        EOF
