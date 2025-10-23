@@ -25,11 +25,11 @@ function App() {
   };
 
   return (
-    <div className={`min-vh-100 ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+    <div className={`min-vh-100 ${darkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}   style={{ transition: 'background-color 0.5s ease, color 0.5s ease' }}>
       <div className="container py-5">
         <div className="d-flex justify-content-between align-items-center mb-5">
           <h1 className="fw-bold">🖼 AI Image Generator</h1>
-          <button className="btn btn-outline-light" onClick={() => setDarkMode(!darkMode)}>
+          <button className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`} onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? '☀ Light Mode' : '🌙 Dark Mode'}
           </button>
         </div>
