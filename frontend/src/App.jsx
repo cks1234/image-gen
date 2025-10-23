@@ -13,7 +13,7 @@ function App() {
     if (!prompt) return;
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/generate', {
+      const response = await axios.post('http://13.55.189.3:8000/generate', {
         text: prompt,
       });
       setImageUrl(response.data.url);
